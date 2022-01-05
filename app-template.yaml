@@ -1,7 +1,7 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: v1beta3-demo
+  name: app-demo
   title: "[Platform] Application"
   description: Create a new sre-platform's app
   tags:
