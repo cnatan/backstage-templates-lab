@@ -1,0 +1,133 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: v1beta3-demo
+  title: "[Platform] Application"
+  description: Create a new sre-platform's app
+  tags:
+    - recommended
+    - dotnet
+spec:
+  owner: team-a
+  type: service
+
+  # these are the steps which are rendered in the frontend with the form input
+  parameters:
+    - title: Name & Ownership
+      required:
+        - name
+        - project
+        - owner
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the app
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        project:
+          title: Project
+          type: string
+          description: The app parent project
+          ui:options:
+            rows: 5
+        owner:
+          title: Owner
+          type: string
+          description: Owner team of the app
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+    - title: Code
+      required:
+        - template
+        - repositoryOrg
+      properties:
+        template:
+          title: Repository Template 
+          type: string
+          description: The GitHub repository template
+          enum: ["dotnet-webapi"]
+          default: "dotnet-webapi"
+        repositoryOrg:
+          title: Github Organization
+          type: string
+          description: GitHub Organization that should own this repository
+          enum: ["stone-payments"]
+          default: "stone-payments"
+    - title: Deployment
+      required:
+        - endpointType
+        - deploymentTargets
+      properties:
+        endpointType:
+          title: App Endpoint Type
+          type: string
+          description: The type of the endpoint exposing the app
+          enum: ["private","public"]
+          default: "private"
+        deploymentTargets:
+          title: Deployment Targets
+          type: array
+          description: Targets to deploy the application
+          items:
+            type: string
+          ui:autofocus: true
+          ui:options:
+            orderable: false
+        pipelineBranch:
+          title: Trigger branch
+          type: string
+          description: Which repository branch the application pipeline should listen to
+          default: main
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: create-app
+      name: Create Platform App
+      action: sre-platform:create-app
+      input:
+        name: ${{ parameters.name }}
+        template: ${{ parameters.template }}
+        repositoryOrg: ${{ parameters.repositoryOrg }}
+        endpointType: ${{ parameters.endpointType }}
+        deploymentTargets: ${{ parameters.deploymentTargets }}
+        project: ${{ parameters.project }}
+        pipelineBranch: ${{ parameters.pipelineBranch }}
+    # - id: fetch-base
+    #   name: Fetch Base
+    #   action: fetch:template
+    #   input:
+    #     url: ./template
+    #     values:
+    #       name: ${{ parameters.name }}
+    #       owner: ${{ parameters.owner }}
+
+    # - id: fetch-docs
+    #   name: Fetch Docs
+    #   action: fetch:plain
+    #   input:
+    #     targetPath: ./community
+    #     url: https://github.com/backstage/community/tree/main/backstage-community-sessions
+
+    # - id: publish
+    #   name: Publish
+    #   action: publish:github
+    #   input:
+    #     allowedHosts: ['github.com']
+    #     description: This is ${{ parameters.name }}
+    #     repoUrl: ${{ parameters.repoUrl }}
+
+    # - id: register
+    #   name: Register
+    #   action: catalog:register
+    #   input:
+    #     repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+    #     catalogInfoPath: '/catalog-info.yaml'
+
+  # some outputs which are saved along with the job for use in the frontend
+  # output:
+  #   remoteUrl: ${{ steps.publish.output.remoteUrl }}
+  #   entityRef: ${{ steps.register.output.entityRef }}
