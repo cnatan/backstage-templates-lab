@@ -1,0 +1,102 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: v1beta3-demo
+  title: "[Platform] Project"
+  description: Create a new sre-platform's project 
+spec:
+  owner: team-a
+  type: system
+
+  # these are the steps which are rendered in the frontend with the form input
+  parameters:
+    - title: Required parameters
+      required:
+        - name
+        - owner
+        - gcpNonProd
+        - gcpProd
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the project
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        owner:
+          title: Owner
+          type: string
+          description: Owner team of the project
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        gcpNonProd:
+          title: GCP NonProd Project ID
+          type: string
+          description: The ID of the non-production Google Cloud project
+          ui:options:
+            rows: 5
+        gcpProd:
+          title: GCP Prod Project ID
+          type: string
+          description: The ID of the production Google Cloud project
+          ui:options:
+            rows: 5
+    - title: Optional parameters
+      properties:
+        azdevopsProject:
+          title: Existent Azure Devops project
+          type: string
+          description: The name of an existing AzureDevOps Project to linked to the Platform Project
+          ui:options:
+            rows: 5
+        azdevopsProjectProcess:
+          title: Azure Devops project process
+          type: string
+          description: The name of process to be used in the new AzureDevOps Project to be created
+          enum: ["CMMI", "agile", "scrum", "basic", "kanban"]
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: debug
+      name: Debug
+      action: debug:log
+      input:
+        listWorkspace: true
+    # - id: fetch-base
+    #   name: Fetch Base
+    #   action: fetch:template
+    #   input:
+    #     url: ./template
+    #     values:
+    #       name: ${{ parameters.name }}
+    #       owner: ${{ parameters.owner }}
+
+    # - id: fetch-docs
+    #   name: Fetch Docs
+    #   action: fetch:plain
+    #   input:
+    #     targetPath: ./community
+    #     url: https://github.com/backstage/community/tree/main/backstage-community-sessions
+
+    # - id: publish
+    #   name: Publish
+    #   action: publish:github
+    #   input:
+    #     allowedHosts: ['github.com']
+    #     description: This is ${{ parameters.name }}
+    #     repoUrl: ${{ parameters.repoUrl }}
+
+    # - id: register
+    #   name: Register
+    #   action: catalog:register
+    #   input:
+    #     repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+    #     catalogInfoPath: '/catalog-info.yaml'
+
+  # some outputs which are saved along with the job for use in the frontend
+  # output:
+  #   remoteUrl: ${{ steps.publish.output.remoteUrl }}
+  #   entityRef: ${{ steps.register.output.entityRef }}
