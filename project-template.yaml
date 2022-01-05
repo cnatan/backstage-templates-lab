@@ -6,7 +6,7 @@ metadata:
   description: Create a new sre-platform's project 
 spec:
   owner: team-a
-  type: platform-core-4
+  type: platform-core-2
 
   # these are the steps which are rendered in the frontend with the form input
   parameters:
@@ -49,21 +49,18 @@ spec:
             rows: 5
     - title: Azure Devops Integration
       properties:
-        useExistentAzdevopsProject:
-          title: Link an Existent Azure Devops project
-          type: boolean
-          description: Whether use an existent Azure Devops project instead of create a new one
-        azdevopsProjectProcess:
-          title: Azure Devops project process
+        azdevopsIntegrationType:
+          title: Azure Devops integration type
           type: string
-          description: The name of process to be used in the new AzureDevOps Project to be created
-          enum: ["CMMI", "agile", "scrum", "basic", "kanban"]
+          description: Whether use an existent Azure Devops project instead of create a new one
+          enum: ["Use a existent project", "Create a new project"]
+          default: "Create a new project"
       dependencies:
-        useExistentAzdevopsProject:
+        azdevopsIntegrationType:
           oneOf:
             - properties:
-                useExistentAzdevopsProject:
-                  boolean: true
+                azdevopsIntegrationType:
+                  enum: ["Use a existent project"]
                 azdevopsProject:
                   title: Azure Devops project
                   type: string
@@ -71,10 +68,19 @@ spec:
                   ui:options:
                     rows: 5
                   # ui:widget:
-                  #   hidden: ${{ parameters.useExistentAzdevopsProject }}
+                  #   hidden: ${{ parameters.azdevopsIntegrationType }}
               required: ["azdevopsProject"]
+            - properties:
+                azdevopsIntegrationType:
+                  enum: ["Create a new project"]
+                azdevopsProjectProcess:
+                  title: Azure Devops project process
+                  type: string
+                  description: The name of process to be used in the new AzureDevOps Project to be created
+                  enum: ["CMMI", "agile", "scrum", "basic", "kanban"]
+              required: ["azdevopsProjectProcess"]
       # dependencies:
-      #   useExistentAzdevopsProject: ["azdevopsProject"]
+      #   azdevopsIntegrationType: ["azdevopsProject"]
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
