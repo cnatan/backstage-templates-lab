@@ -6,7 +6,7 @@ metadata:
   description: Create a new sre-platform's project 
 spec:
   owner: team-a
-  type: platform-core-2
+  type: platform-core-3
 
   # these are the steps which are rendered in the frontend with the form input
   parameters:
@@ -53,21 +53,25 @@ spec:
           title: Link an Existent Azure Devops project
           type: boolean
           description: Whether use an existent Azure Devops project instead of create a new one
-        azdevopsProject:
-          title: Azure Devops project
-          type: string
-          description: The name of an existing AzureDevOps Project to linked to the Platform Project
-          ui:options:
-            rows: 5
-          # ui:widget:
-          #   hidden: ${{ parameters.useExistentAzdevopsProject }}
         azdevopsProjectProcess:
           title: Azure Devops project process
           type: string
           description: The name of process to be used in the new AzureDevOps Project to be created
           enum: ["CMMI", "agile", "scrum", "basic", "kanban"]
       dependencies:
-        useExistentAzdevopsProject: ["azdevopsProject"]
+        useExistentAzdevopsProject:
+          properties:
+            azdevopsProject:
+              title: Azure Devops project
+              type: string
+              description: The name of an existing AzureDevOps Project to linked to the Platform Project
+              ui:options:
+                rows: 5
+              # ui:widget:
+              #   hidden: ${{ parameters.useExistentAzdevopsProject }}
+          required: ["azdevopsProject"]
+      # dependencies:
+      #   useExistentAzdevopsProject: ["azdevopsProject"]
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
