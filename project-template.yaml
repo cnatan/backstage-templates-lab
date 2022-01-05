@@ -3,10 +3,14 @@ kind: Template
 metadata:
   name: v1beta3-demo
   title: "[Platform] Project"
-  description: Create a new sre-platform's project 
+  description: Create a new sre-platform's project
+  tags:
+    - recommended
+    - platform-core
+    - test-A
 spec:
   owner: team-a
-  type: platform-core-2
+  type: platform-core
 
   # these are the steps which are rendered in the frontend with the form input
   parameters:
@@ -52,7 +56,7 @@ spec:
         azdevopsIntegrationType:
           title: Azure Devops integration type
           type: string
-          description: Whether use an existent Azure Devops project instead of create a new one
+          description: The type of the link between the Platform project and the Azure Devops project
           enum: ["Use a existent project", "Create a new project"]
           default: "Create a new project"
       dependencies:
@@ -89,6 +93,14 @@ spec:
       action: debug:log
       input:
         listWorkspace: true
+    - id: create-project
+      name: Create Platform Project
+      action: sre-platform:create-project
+      input:
+        name: ${{ parameters.name }}
+        gcpNonProd: ${{ parameters.gcpNonProd }}
+        azdevopsProject: ${{ parameters.azdevopsProject }}
+        azdevopsProcess: ${{ parameters.azdevopsProjectProcess }}
     # - id: fetch-base
     #   name: Fetch Base
     #   action: fetch:template
