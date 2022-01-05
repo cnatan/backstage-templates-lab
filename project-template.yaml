@@ -10,12 +10,10 @@ spec:
 
   # these are the steps which are rendered in the frontend with the form input
   parameters:
-    - title: Required parameters
+    - title: Name & Ownership
       required:
         - name
         - owner
-        - gcpNonProd
-        - gcpProd
       properties:
         name:
           title: Name
@@ -32,6 +30,11 @@ spec:
           ui:options:
             allowedKinds:
               - Group
+    - title: Google Cloud Integration
+      required:
+        - gcpNonProd
+        - gcpProd
+      properties:
         gcpNonProd:
           title: GCP NonProd Project ID
           type: string
@@ -44,12 +47,13 @@ spec:
           description: The ID of the production Google Cloud project
           ui:options:
             rows: 5
-    - title: Optional parameters
+    - title: Azure Devops Integration
       properties:
         azdevopsProject:
           title: Existent Azure Devops project
           type: string
           description: The name of an existing AzureDevOps Project to linked to the Platform Project
+          ui:autofocus: true
           ui:options:
             rows: 5
         azdevopsProjectProcess:
