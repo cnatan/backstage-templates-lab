@@ -6,7 +6,7 @@ metadata:
   description: Create a new sre-platform's project 
 spec:
   owner: team-a
-  type: system
+  type: platform-core
 
   # these are the steps which are rendered in the frontend with the form input
   parameters:
