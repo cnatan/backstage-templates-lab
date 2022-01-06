@@ -98,4 +98,4 @@ spec:
         project: ${{ parameters.project }}
         pipelineBranch: ${{ parameters.pipelineBranch }}
   output:
-    entityRef: ${{ steps.create-project.output.entityRef }}
+    entityRef: ${{ steps.create-app.output.entityRef }}
