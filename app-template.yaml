@@ -102,5 +102,3 @@ spec:
       action: debug:log
       input:
         message: ${{ steps.create-app.output.entityRef }}
-  output:
-    entityRef: ${{ steps.create-app.output.entityRef }}
