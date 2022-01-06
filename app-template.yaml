@@ -7,7 +7,7 @@ metadata:
   tags:
     - recommended
     - dotnet
-    - test-92
+    - test-95
 spec:
   owner: team-a
   type: service
@@ -86,7 +86,7 @@ spec:
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
-    - id: create-app
+    - id: app
       name: Create Platform App
       action: sre-platform:create-app
       input:
@@ -98,8 +98,4 @@ spec:
         project: ${{ parameters.project }}
         pipelineBranch: ${{ parameters.pipelineBranch }}
   output:
-    entityRef: ${{ steps.create-app.output.entityRef }}
-    links:
-      - url: ${{ steps.create-app.output.url }}
-        icon: catalog
-        title: View Component
+    entityRef: ${{ steps.app.output.entityRef }}
