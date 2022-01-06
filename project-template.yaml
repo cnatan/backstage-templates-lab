@@ -7,7 +7,7 @@ metadata:
   tags:
     - recommended
     - platform-core
-    - test-9
+    - test-91
 spec:
   owner: team-a
   type: platform-core
@@ -98,7 +98,8 @@ spec:
         azdevopsProcess: ${{ parameters.azdevopsProjectProcess }}
   output:
     entityRef: ${{ steps.create-project.output.entityRef }}
-    links: ${{ steps.create-project.output.links }}
+    links:
+      - ${{ steps.create-project.output.links }}
     # - id: fetch-base
     #   name: Fetch Base
     #   action: fetch:template
