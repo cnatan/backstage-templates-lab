@@ -99,7 +99,9 @@ spec:
   output:
     entityRef: ${{ steps.create-project.output.entityRef }}
     links:
-      - ${{ steps.create-project.output.links }}
+      - url: ${{ steps.create-project.output.url }}
+        icon: catalog
+        title: View Component
     # - id: fetch-base
     #   name: Fetch Base
     #   action: fetch:template
