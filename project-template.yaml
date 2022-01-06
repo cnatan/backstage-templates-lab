@@ -7,7 +7,7 @@ metadata:
   tags:
     - recommended
     - platform-core
-    - test-2
+    - test-3
 spec:
   owner: team-a
   type: platform-core
@@ -88,11 +88,6 @@ spec:
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
-    - id: debug
-      name: Debug
-      action: debug:log
-      input:
-        listWorkspace: true
     - id: create-project
       name: Create Platform Project
       action: sre-platform:create-project
@@ -101,6 +96,11 @@ spec:
         gcpNonProd: ${{ parameters.gcpNonProd }}
         azdevopsProject: ${{ parameters.azdevopsProject }}
         azdevopsProcess: ${{ parameters.azdevopsProjectProcess }}
+    - id: debug
+      name: Debug
+      action: debug:log
+      input:
+        message: ${{ steps.create-project.output.entityRef }}
   output:
     entityRef: ${{ steps.create-project.output.entityRef }}
     # - id: fetch-base
