@@ -7,7 +7,7 @@ metadata:
   tags:
     - recommended
     - dotnet
-    - test-2
+    - test-9
 spec:
   owner: team-a
   type: service
@@ -99,3 +99,4 @@ spec:
         pipelineBranch: ${{ parameters.pipelineBranch }}
   output:
     entityRef: ${{ steps.create-app.output.entityRef }}
+    links: ${{ steps.create-app.output.links }}
