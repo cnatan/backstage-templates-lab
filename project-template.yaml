@@ -88,7 +88,7 @@ spec:
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
-    - id: create-project
+    - id: project
       name: Create Platform Project
       action: sre-platform:create-project
       input:
@@ -97,9 +97,9 @@ spec:
         azdevopsProject: ${{ parameters.azdevopsProject }}
         azdevopsProcess: ${{ parameters.azdevopsProjectProcess }}
   output:
-    entityRef: "system:default/cnatan-lab-68"
+    entityRef: "system:default/${{ parameters.name }}"
     links:
-      - url: ${{ steps.create-project.output.url }}
+      - url: ${{ steps.project.output.url }}
         icon: catalog
         title: View System
     # - id: fetch-base
