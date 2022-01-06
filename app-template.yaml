@@ -100,6 +100,6 @@ spec:
   output:
     entityRef: ${{ steps.create-app.output.entityRef }}
     links:
-      - url: ${{ steps.create-project.output.url }}
+      - url: ${{ steps.create-app.output.url }}
         icon: catalog
         title: View Component
