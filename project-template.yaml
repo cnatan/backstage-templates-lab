@@ -101,7 +101,7 @@ spec:
     links:
       - url: ${{ steps.create-project.output.url }}
         icon: catalog
-        title: View Component
+        title: View System
     # - id: fetch-base
     #   name: Fetch Base
     #   action: fetch:template
