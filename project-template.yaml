@@ -97,7 +97,7 @@ spec:
         azdevopsProject: ${{ parameters.azdevopsProject }}
         azdevopsProcess: ${{ parameters.azdevopsProjectProcess }}
   output:
-    entityRef: ${{ steps.create-project.output.entityRef }}
+    entityRef: "system:default/cnatan-lab-68"
     links:
       - url: ${{ steps.create-project.output.url }}
         icon: catalog
