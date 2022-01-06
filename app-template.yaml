@@ -97,8 +97,5 @@ spec:
         deploymentTargets: ${{ parameters.deploymentTargets }}
         project: ${{ parameters.project }}
         pipelineBranch: ${{ parameters.pipelineBranch }}
-    - id: debug
-      name: Debug
-      action: debug:log
-      input:
-        message: ${{ steps.create-app.output.entityRef }}
+  output:
+    entityRef: ${{ steps.create-project.output.entityRef }}
