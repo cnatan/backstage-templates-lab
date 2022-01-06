@@ -99,5 +99,4 @@ spec:
         pipelineBranch: ${{ parameters.pipelineBranch }}
   output:
     entityRef: ${{ steps.create-app.output.entityRef }}
-    links:
-      - ${{ steps.create-project.output.links }}
+    links: [${{ steps.create-project.output.links }}]
