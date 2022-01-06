@@ -1,13 +1,13 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: v1beta3-demo
+  name: project-demo
   title: "[Platform] Project"
   description: Create a new sre-platform's project
   tags:
     - recommended
     - platform-core
-    - test-1
+    - test-2
 spec:
   owner: team-a
   type: platform-core
@@ -101,6 +101,8 @@ spec:
         gcpNonProd: ${{ parameters.gcpNonProd }}
         azdevopsProject: ${{ parameters.azdevopsProject }}
         azdevopsProcess: ${{ parameters.azdevopsProjectProcess }}
+  output:
+    entityRef: ${{ steps.create-project.output.entityRef }}
     # - id: fetch-base
     #   name: Fetch Base
     #   action: fetch:template
@@ -131,8 +133,3 @@ spec:
     #   input:
     #     repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
     #     catalogInfoPath: '/catalog-info.yaml'
-
-  # some outputs which are saved along with the job for use in the frontend
-  # output:
-  #   remoteUrl: ${{ steps.publish.output.remoteUrl }}
-  #   entityRef: ${{ steps.register.output.entityRef }}
