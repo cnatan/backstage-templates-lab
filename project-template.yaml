@@ -96,11 +96,6 @@ spec:
         gcpNonProd: ${{ parameters.gcpNonProd }}
         azdevopsProject: ${{ parameters.azdevopsProject }}
         azdevopsProcess: ${{ parameters.azdevopsProjectProcess }}
-    - id: debug
-      name: Debug
-      action: debug:log
-      input:
-        message: ${{ steps.create-project.output.entityRef }}
   output:
     entityRef: ${{ steps.create-project.output.entityRef }}
     # - id: fetch-base
